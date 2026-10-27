@@ -1,0 +1,76 @@
+/* Fragrantica owns the visual design. Change spacing and grouping only. */
+html.ff-reader-on .ff-main { box-sizing:border-box; max-width:1280px!important; width:100%; }
+html.ff-reader-on .ff-columns { display:block!important; }
+html.ff-reader-on .ff-sidebar { display:none!important; }
+html.ff-reader-on .ff-column { width:100%!important; padding-inline:0!important; }
+html.ff-reader-on .ff-product { display:flex!important; flex-direction:column; gap:0; reading-flow:flex-visual; padding:20px 28px 40px!important; }
+html.ff-reader-on .ff-product > * { min-width:0; order:85; scroll-margin-top:88px; }
+html.ff-reader-on .ff-product > [data-ff-section] { margin-bottom:24px!important; }
+html.ff-reader-on .ff-product > [data-ff-section="identity"] { order:0; margin-bottom:12px!important; }
+html.ff-reader-on .ff-product > #ff-reader { order:5; }
+html.ff-reader-on .ff-product > [data-ff-section="bottle"] { order:10; }
+html.ff-reader-on .ff-product > [data-ff-section="votes"] { order:20; }
+html.ff-reader-on .ff-product > [data-ff-section="notes"] { order:30; }
+html.ff-reader-on .ff-product > [data-ff-section="performance"] { order:40; }
+html.ff-reader-on .ff-product > [data-ff-section="value"] { order:41; }
+html.ff-reader-on .ff-product > [data-ff-section="verdict"] { order:50; }
+html.ff-reader-on .ff-product > [data-ff-section="description"] { order:60; }
+html.ff-reader-on .ff-product > [data-ff-section="similar"] { order:70; }
+html.ff-reader-on .ff-product > [data-ff-section="related"] { order:71; }
+html.ff-reader-on .ff-product > [data-ff-section="write-review"] { order:74; }
+html.ff-reader-on .ff-product > [data-ff-section="reviews"] { order:75; }
+html.ff-reader-on .ff-product > [data-ff-section="collection"] { order:90; }
+html.ff-reader-on .ff-product > [data-ff-section="photos"] { order:91; }
+html.ff-reader-on .ff-product > [data-ff-section="news"] { order:100; }
+html.ff-reader-on .ff-product > [data-ff-section="designer"] { order:110; }
+/* Retain the native title, picture sources, designer logo, and colorful accord bars. */
+html.ff-reader-on .ff-product h1 { scroll-margin-top:88px; }
+html.ff-reader-on .ff-product h1 span { white-space:normal!important; }
+html.ff-reader-on [data-ff-section="bottle"] { grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important; align-items:center; gap:32px!important; width:100%; max-width:960px; margin-inline:auto; }
+html.ff-reader-on [data-ff-section="bottle"] picture { display:flex; align-items:center; justify-content:center; }
+html.ff-reader-on [data-ff-section="bottle"] img[itemprop="image"] { height:320px!important; width:auto!important; max-width:100%!important; object-fit:contain; }
+html.ff-reader-on [data-ff-section="bottle"] [itemprop="brand"] { margin:0 0 16px!important; }
+html.ff-reader-on [data-ff-section="bottle"] [itemprop="brand"] > a { display:inline-flex; align-items:center; gap:12px; }
+html.ff-reader-on [data-ff-section="bottle"] img[itemprop="logo"] { max-height:64px!important; max-width:112px!important; width:auto!important; object-fit:contain; }
+html.ff-reader-on [data-ff-section="bottle"] h6 { margin-bottom:8px!important; }
+/* Keep the photographic pyramid and the relative emphasis of its notes. */
+html.ff-reader-on .ff-product #pyramid .p-5 { padding:20px!important; }
+html.ff-reader-on .ff-product .pyramid-level-container { gap:16px!important; padding-block:12px!important; }
+html.ff-reader-on .ff-product .pyramid-note-link img { max-width:56px!important; height:auto; }
+html.ff-reader-on .ff-product [itemprop="reviewBody"] { max-width:78ch; }
+/* Keep reactive empty wrappers displayed so their lazy components can load. */
+html.ff-block-ads :is(.freeStarFragrantica,.sliding-ad-container,.perfume-offer-box,.affiliate-disclosure,.sponsored-label,[data-freestar-ad],.fs-sticky-footer,#fs-sticky-footer,#fs-slot-footer-wrapper,[id^="google_ads_iframe"],[id^="fragranticacom_"],[data-ff-section="ad"],iframe[src*="c.fimgs.net/"],iframe[src*="btloader.com/"],iframe[title="3rd party ad content"]) { display:none!important; min-height:0!important; height:0!important; margin:0!important; padding:0!important; }
+html.ff-block-ads .ff-product > div:has(> .sliding-ad-container), html.ff-block-ads .ff-product > div:has(> iframe[src*="c.fimgs.net/"]) { display:none!important; }
+/* The only added interface is a compact, site-colored section navigator. */
+#ff-reader { --ff-accent:#0f766e; --ff-muted:#71717a; --ff-line:#e4e4e7; font:inherit; color:inherit; margin:0 0 20px; }
+html.dark #ff-reader { --ff-accent:#5eead4; --ff-muted:#a1a1aa; --ff-line:#3f3f46; }
+#ff-reader .ff-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0 12px; border-bottom:1px solid var(--ff-line); }
+#ff-reader .ff-nav { display:flex; flex-wrap:wrap; gap:4px; }
+#ff-reader button { font:inherit; font-size:12px; line-height:1.4; color:var(--ff-accent); background:transparent; border:0; border-radius:6px; padding:8px 10px; cursor:pointer; transition:background-color .15s; }
+#ff-reader button:hover { background:color-mix(in srgb,var(--ff-accent) 10%,transparent); }
+#ff-reader #ff-layout-toggle { color:var(--ff-muted); white-space:nowrap; border:1px solid var(--ff-line); }
+#ff-reader button:focus-visible { outline:2px solid var(--ff-accent); outline-offset:3px; }
+#ff-reader .ff-status { font-size:12px; color:var(--ff-muted); margin:0; }
+#ff-reader .ff-status:not(:empty) { padding-top:8px; }
+html:not(.ff-reader-on) #ff-reader .ff-nav { display:none; }
+html:not(.ff-reader-on) #ff-reader .ff-toolbar { justify-content:flex-end; border:0; padding:4px 0; }
+@media(max-width:767px) {
+  html.ff-reader-on .ff-product { padding:16px!important; }
+  html.ff-reader-on [data-ff-section="bottle"] { gap:18px!important; }
+  html.ff-reader-on [data-ff-section="bottle"] img[itemprop="image"] { height:260px!important; }
+  #ff-reader .ff-toolbar { flex-wrap:nowrap; gap:8px; }
+  #ff-reader .ff-nav { flex:1 1 auto; min-width:0; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin; }
+  #ff-reader .ff-nav button { flex-shrink:0; }
+  #ff-reader button { padding:8px; font-size:11px; }
+  html.ff-reader-on .ff-product #pyramid .p-5 { padding:16px!important; }
+}
+@media(max-width:430px) {
+  html.ff-reader-on .ff-product { padding:12px!important; }
+  html.ff-reader-on [data-ff-section="bottle"] { gap:12px!important; }
+  html.ff-reader-on [data-ff-section="bottle"] img[itemprop="image"] { height:220px!important; }
+  html.ff-reader-on [data-ff-section="bottle"] [itemprop="brand"] > a { flex-direction:column; gap:4px; }
+  html.ff-reader-on [data-ff-section="bottle"] img[itemprop="logo"] { max-height:40px!important; }
+  html.ff-reader-on .ff-product .pyramid-level-container { gap:12px!important; }
+  html.ff-reader-on .ff-product .pyramid-note-link img { max-width:48px!important; }
+}
+@media(prefers-reduced-motion:reduce) { #ff-reader button { transition:none; } }

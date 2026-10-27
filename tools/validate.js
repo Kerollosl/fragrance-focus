@@ -1,0 +1,14 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const cp = require('node:child_process');
+const root=path.join(__dirname,'..');
+const m=JSON.parse(fs.readFileSync(path.join(root,'manifest.json')));
+if(m.manifest_version!==3) throw Error('Manifest V3 required');
+for(const key of ['name','version','description']) if(!m[key]) throw Error(`Missing ${key}`);
+if(m.host_permissions.join(',')!=='https://www.fragrantica.com/*') throw Error('Unexpected host access');
+if(m.permissions.some(p=>!['storage','declarativeNetRequest'].includes(p))) throw Error('Unexpected permission');
+const files=[m.background.service_worker,m.action.default_popup,...m.content_scripts.flatMap(c=>[...c.js,...c.css])];
+files.push(...Object.values(m.icons||{}));
+for(const file of files) if(!fs.existsSync(path.join(root,file))) throw Error(`Missing file ${file}`);
+for(const file of fs.readdirSync(path.join(root,'src')).filter(file=>file.endsWith('.js'))) cp.execFileSync(process.execPath,['--check',path.join(root,'src',file)]);
+console.log('Manifest, permissions, referenced files, and JavaScript syntax validated.');

@@ -1,0 +1,6 @@
+.DS_Store
+artifacts/*.jpg
+artifacts/*.png
+artifacts/*.zip
+artifacts/*.html
+__pycache__/
