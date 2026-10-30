@@ -15,6 +15,28 @@ function votes(id,items) {
 }
 votes('#fixture-rating',[['love','16.7k'],['like','8.5k'],['ok','3k'],['dislike','1.9k'],['hate','1.2k']]);
 votes('#fixture-wear',[['winter','22.4k'],['spring','4k'],['summer','2.5k'],['fall','17.7k'],['day','7.7k'],['night','17.6k']]);
+// Match the site's performance DOM: the clickable bar has no label/count descendants.
+function performanceCard(label,items) {
+  const card=document.createElement('div');card.className='tw-perf-card';
+  const heading=document.createElement('span');heading.textContent=label.toUpperCase();card.append(heading);
+  const personal=document.createElement('div');const personalLabel=document.createElement('span');personalLabel.textContent='Your vote: no vote';
+  const slider=document.createElement('div');slider.className='vue-slider';slider.tabIndex=0;slider.role='slider';slider.setAttribute('aria-label',`Your ${label} vote`);slider.setAttribute('aria-valuemin','0');slider.setAttribute('aria-valuemax','5');slider.setAttribute('aria-valuenow','0');
+  slider.addEventListener('click',()=>{card.dataset.sliderClicked='true';});personal.append(personalLabel,slider);card.append(personal);
+  const rows=document.createElement('div');rows.className='fixture-performance-rows';
+  for(const [name,count] of items) {
+    const row=document.createElement('div');
+    const labelBox=document.createElement('div');const labelSpan=document.createElement('span');labelSpan.textContent=name;labelBox.append(labelSpan);
+    const countBox=document.createElement('div');const countSpan=document.createElement('span');countSpan.textContent=count;countBox.append(countSpan);
+    const barBox=document.createElement('div');const bar=document.createElement('div');bar.className='cursor-pointer';bar.tabIndex=0;bar.role='button';bar.setAttribute('aria-label',`Vote ${label} ${name}`);
+    bar.addEventListener('click',()=>{card.dataset.clicked=name;});barBox.append(bar);
+    row.append(labelBox,countBox,barBox);rows.append(row);
+  }
+  card.append(rows);return card;
+}
+document.querySelector('#fixture-demographics').append(
+  performanceCard('Gender',[['female','1.6k'],['more female','3k'],['unisex','14.1k'],['more male','3.8k'],['male','1.4k']]),
+  performanceCard('Price value',[['way overpriced','315'],['overpriced','316'],['ok','1.8k'],['good value','7.6k'],['great value','12.8k']])
+);
 for(const [stage,items] of [
   ['Top Notes',[['Cinnamon',65],['Nutmeg',59],['Bergamot',75]]],
   ['Middle Notes',[['Dates',355],['Praline',198],['Tuberose',25],['Mahonial',990]]],

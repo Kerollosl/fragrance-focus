@@ -21,6 +21,31 @@ test('season ranking excludes day/night and empty votes',()=>{
   const votes=[{label:'day',count:99},{label:'summer',count:0},{label:'fall',count:12},{label:'winter',count:20}];
   assert.deepEqual(F.leading(votes,['winter','spring','summer','fall']).map(v=>v.label),['winter','fall']);
 });
+test('vote distributions use counts, preserve zeroes and ties, and keep denominators separate',()=>{
+  const wear=[{label:'winter',count:20},{label:'summer',count:5},{label:'day',count:60},{label:'night',count:40}];
+  const seasons=F.distribution(wear.filter(v=>['winter','summer'].includes(v.label)));
+  assert.equal(seasons.total,25);
+  assert.equal(seasons.items[0].share,80);
+  assert.equal(F.distribution(wear.filter(v=>['day','night'].includes(v.label))).items[0].share,60);
+  assert.equal(F.distribution([{label:'winter',count:0}]),null);
+  assert.equal(F.distribution([]),null);
+  const tied=F.distribution([{label:'weak',count:50},{label:'strong',count:50},{label:'eternal',count:0}]);
+  assert.equal(tied.leaders.length,2);
+  assert.equal(tied.items[2].share,0);
+});
+test('takeaways omit wearing recommendations for sparse or divided votes',()=>{
+  const base={accords:[{name:'sweet'},{name:'warm spicy'}],family:'Oriental Spicy',wear:[]};
+  assert.equal(F.takeaway(base),'Sweet with warm spice.');
+  for(const wear of [
+    [{label:'winter',count:4},{label:'summer',count:1}],
+    [{label:'winter',count:50},{label:'summer',count:50}],
+    [{label:'winter',count:51},{label:'summer',count:49}]
+  ]) assert.equal(F.takeaway({...base,wear}),F.takeaway(base));
+  assert.equal(F.takeaway({...base,wear:[{label:'winter',count:90},{label:'summer',count:10},{label:'night',count:80},{label:'day',count:20}]}),'Sweet with warm spice. Most wear votes: winter · night.');
+  assert.equal(F.takeaway({accords:[],wear:[],family:''}),'');
+  assert.equal(F.takeaway({...base,accords:[{name:'vanilla'},{name:'sweet'}],family:'Oriental Fougere'}),'Sweet vanilla.');
+  assert.equal(F.takeaway({...base,wear:[{label:'winter',count:48},{label:'fall',count:38},{label:'spring',count:9},{label:'summer',count:5},{label:'night',count:70},{label:'day',count:30}]}),'Sweet with warm spice. Most wear votes: fall & winter · night.');
+});
 test('ad rules target one tab, never main-frame navigation or bottle image host',()=>{
   const rules=rulesForTab(1187758784,true,9);
   assert.deepEqual(rules.map(r=>r.id),[9,10]);

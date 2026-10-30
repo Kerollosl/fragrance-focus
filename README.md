@@ -2,11 +2,15 @@
 
 A no-build Chrome extension that organizes Fragrantica perfume pages while preserving their original look.
 
-## Version 0.2
+## Version 0.3
 
-The site remains recognizably Fragrantica: its logo, header/search, native fonts, light/dark theme, colorful accord bars, designer logo, voting icons, and photographic note pyramid are preserved. The extension adds a small section navigator, reduces oversized bottle/logo imagery, cleans spacing, and groups ratings, notes, performance, and pros/cons before longer discovery content. It does not recreate the fragrance data in a second hero or override the site's palette.
+The site stays recognizably Fragrantica: native fonts, light/dark themes, colorful accord bars, emoji voting, photographic notes, designer logos, and colored performance cards are preserved. The bottle is larger and centered beside the accords. A short plain-language takeaway and the community rating sit near the title. Source charts retain every label and count, with a small “Most votes” readout to make the result obvious. Pros/cons and their original AI disclosure remain visible.
 
-Known ad slots, sponsored shopping offers, affiliate embeds, and sticky ads are removed. Known ad-network requests are blocked only in perfume-page tabs. Original note links, review controls, and voting listeners stay on their source DOM nodes. Empty native wrappers remain displayed so lazy components can load.
+Takeaways use only page accords and visible community votes. Close, tied, and sparse votes do not produce confident wearing recommendations. Percentages are approximate because source counts can be abbreviated. Reaction percentages describe love/like votes rather than the star rating. Season and day/night votes are separate. Performance extraction supports Fragrantica's actual `.tw-perf-card` markup and sibling labels/counts.
+
+**Show personal voting sliders** reveals the visitor's own performance voting inputs; these are separate from community results. Native voting listeners, note links, review controls, and empty lazy-loading wrappers stay intact. Long descriptions and secondary discovery sections are folded until requested. Loading/hydration must not duplicate the navigator or takeaway.
+
+Known ad slots, sponsored shopping offers, affiliate embeds, and sticky ads are removed. Known ad-network requests are blocked only in perfume-page tabs.
 
 Supported URLs: `https://www.fragrantica.com/perfume/<designer>/<fragrance>-<id>.html`. Other page types are untouched. English `.com` only. Chrome 137+ is required for accessibility-aware CSS reading flow.
 
@@ -17,7 +21,7 @@ Supported URLs: `https://www.fragrantica.com/perfume/<designer>/<fragrance>-<id>
 3. For an existing installation from this folder: click Reload on its extension card.
 4. Refresh the Fragrantica tab. If you installed an extracted ZIP elsewhere, use the new package there or load this updated folder instead. Keep one copy enabled.
 
-The toolbar popup controls **Organize page** and **Remove ads** independently. The inline **Original spacing** button restores the source spacing. Reload the perfume tab after changing network ad blocking.
+The toolbar popup controls **Organize page** and **Remove ads** independently. The inline **Original page** button restores the source layout and content visibility. Reload the perfume tab after changing network ad blocking.
 
 ## Development
 
@@ -27,7 +31,7 @@ npm run validate
 npm run preview
 ```
 
-Open <http://127.0.0.1:8794/tools/preview.html> and choose **Run browser checks**. The synthetic fixture verifies source preservation, native styles, listeners, lazy metadata, layout restoration, duplicate injection, and overflow. It is a test page, not a pixel-faithful Fragrantica replica. Private captured source previews, when present, live only under ignored `artifacts/` and are excluded from the distribution ZIP.
+Open <http://127.0.0.1:8794/tools/preview.html> and choose **Run browser checks**. The fixture verifies native performance parsing, visible chart labels, source styles, native listeners, lazy updates, live reaction summaries, hydration clone recovery, disclosure rebinding, source escaping, original-layout restoration, centered bottle geometry, and overflow. It is a test page, not a pixel-faithful Fragrantica replica. Private captured source previews, when present, live only under ignored `artifacts/` and are excluded from the distribution ZIP.
 
 No tests submit live votes/reviews. Fixture checks do not prove signed-in interaction or Chrome's live network rules.
 

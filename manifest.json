@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Fragrance Focus",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A calmer, ad-free reading layout for Fragrantica perfume pages.",
   "minimum_chrome_version": "137",
   "permissions": ["storage", "declarativeNetRequest"],
