@@ -6,6 +6,7 @@ const m=JSON.parse(fs.readFileSync(path.join(root,'manifest.json')));
 if(m.manifest_version!==3) throw Error('Manifest V3 required');
 for(const key of ['name','version','description']) if(!m[key]) throw Error(`Missing ${key}`);
 if(m.host_permissions.join(',')!=='https://www.fragrantica.com/*') throw Error('Unexpected host access');
+if(!/^\d+\.\d+\.\d+$/.test(m.version)||m.description.length>132) throw Error('Bad version or description length');
 if(m.permissions.some(p=>!['storage','declarativeNetRequest'].includes(p))) throw Error('Unexpected permission');
 const files=[m.background.service_worker,m.action.default_popup,...m.content_scripts.flatMap(c=>[...c.js,...c.css])];
 files.push(...Object.values(m.icons||{}));

@@ -12,7 +12,7 @@ Takeaways use only page accords and visible community votes. Close, tied, and sp
 
 Known ad slots, sponsored shopping offers, affiliate embeds, and sticky ads are removed. Known ad-network requests are blocked only in perfume-page tabs.
 
-Supported URLs: `https://www.fragrantica.com/perfume/<designer>/<fragrance>-<id>.html`. Other page types are untouched. English `.com` only. Chrome 137+ is required for accessibility-aware CSS reading flow.
+Supported URLs: `https://www.fragrantica.com/perfume/<designer>/<fragrance>-<id>.html`. Other page types are untouched. English `.com` only. Chrome 111+ is required (newer Chrome adds an accessibility-aware reading flow).
 
 ## Install or update
 
@@ -21,7 +21,7 @@ Supported URLs: `https://www.fragrantica.com/perfume/<designer>/<fragrance>-<id>
 3. For an existing installation from this folder: click Reload on its extension card.
 4. Refresh the Fragrantica tab. If you installed an extracted ZIP elsewhere, use the new package there or load this updated folder instead. Keep one copy enabled.
 
-The toolbar popup controls **Organize page** and **Remove ads** independently. The inline **Original page** button restores the source layout and content visibility. Reload the perfume tab after changing network ad blocking.
+The toolbar popup controls **Organize page** and **Remove ads** independently. The inline **Original page** button restores the source layout and content visibility. Changing ad blocking reloads the active perfume tab automatically.
 
 ## Development
 

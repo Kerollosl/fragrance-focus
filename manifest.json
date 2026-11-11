@@ -1,18 +1,42 @@
 {
   "manifest_version": 3,
   "name": "Fragrance Focus",
-  "version": "0.3.0",
-  "description": "A calmer, ad-free reading layout for Fragrantica perfume pages.",
-  "minimum_chrome_version": "137",
-  "permissions": ["storage", "declarativeNetRequest"],
-  "host_permissions": ["https://www.fragrantica.com/*"],
-  "icons": {"16":"icons/icon-16.png","32":"icons/icon-32.png","48":"icons/icon-48.png","128":"icons/icon-128.png"},
-  "background": {"service_worker": "src/background.js"},
-  "action": {"default_popup": "src/popup.html", "default_title": "Fragrance Focus"},
-  "content_scripts": [{
-    "matches": ["https://www.fragrantica.com/perfume/*/*.html"],
-    "js": ["src/extract.js", "src/content.js"],
-    "css": ["src/page.css"],
-    "run_at": "document_start"
-  }]
+  "version": "1.0.0",
+  "description": "Calmer perfume pages on Fragrantica: clearer takeaways and fewer ads. Unofficial; not affiliated with Fragrantica.",
+  "minimum_chrome_version": "111",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "https://www.fragrantica.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_title": "Fragrance Focus"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.fragrantica.com/perfume/*/*.html"
+      ],
+      "js": [
+        "src/extract.js",
+        "src/content.js"
+      ],
+      "css": [
+        "src/page.css"
+      ],
+      "run_at": "document_start"
+    }
+  ]
 }

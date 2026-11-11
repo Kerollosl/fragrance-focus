@@ -4,3 +4,4 @@ artifacts/*.png
 artifacts/*.zip
 artifacts/*.html
 __pycache__/
+dist/
