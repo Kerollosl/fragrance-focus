@@ -262,10 +262,8 @@
   function startSafetyNet() {
     const shape = () => product?.isConnected ? `${product.children.length}:${product.querySelectorAll('.carousel-scroll-btn').length}:${product.querySelectorAll('h3').length}` : '';
     let last = shape(), waiting = false;
-    document.documentElement.dataset.ffNet = 'on'; // diagnostic
     const check = () => {
       waiting = false;
-      document.documentElement.dataset.ffChecks = String((Number(document.documentElement.dataset.ffChecks) || 0) + 1); // diagnostic
       const now = shape();
       if (!now || now === last) return;
       refresh(); last = shape();
