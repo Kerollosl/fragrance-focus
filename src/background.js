@@ -1,9 +1,14 @@
 /* Session rules are tab-specific: other Fragrantica page types are untouched. */
 importScripts('extract.js', 'rules.js');
 let queue = Promise.resolve();
+// Tabs that currently hold session rules. Rebuilt by syncTabs on every worker start.
+const ruleTabs = new Set();
+const trackRules = rules => rules.forEach(rule => rule.condition.tabIds?.forEach(id => ruleTabs.add(id)));
 const enqueue = work => { queue = queue.then(work).catch(error => console.error('Fragrance Focus:', error)); };
 
 async function updateTab(tabId, url) {
+  // Most navigations are unrelated pages: skip the DNR round trips entirely for them.
+  if (!FragranceFocus.perfumeURL(url) && !ruleTabs.has(tabId)) return;
   const { blockAds = true } = await chrome.storage.local.get('blockAds');
   const existing = await chrome.declarativeNetRequest.getSessionRules();
   const removeRuleIds = existing.filter(rule => rule.condition.tabIds?.includes(tabId)).map(rule => rule.id);
@@ -12,6 +17,8 @@ async function updateTab(tabId, url) {
   while (usedIds.has(firstId) || usedIds.has(firstId + 1)) firstId += 2;
   const addRules = FragranceFocusNetwork.rulesForTab(tabId, blockAds && FragranceFocus.perfumeURL(url), firstId);
   await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds, addRules });
+  ruleTabs.delete(tabId);
+  trackRules(addRules);
 }
 async function syncTabs() {
   const existing = await chrome.declarativeNetRequest.getSessionRules();
@@ -19,6 +26,8 @@ async function syncTabs() {
   const { blockAds = true } = await chrome.storage.local.get('blockAds');
   const addRules = tabs.filter(tab => FragranceFocus.perfumeURL(tab.url)).flatMap((tab,index) => FragranceFocusNetwork.rulesForTab(tab.id, blockAds, index * 2 + 1));
   await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: existing.map(rule => rule.id), addRules });
+  ruleTabs.clear();
+  trackRules(addRules);
 }
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
   if (change.url || change.status === 'loading') enqueue(() => updateTab(tabId, change.url || tab.url));
